@@ -5,6 +5,7 @@ from discord.ext import commands
 
 from credentials import DISCORD_TOKEN, BRAWL_TOKEN
 from helpers import read_json
+from database import get_reset_time
 
 MYCLUB = 'VCVQPP2'
 
@@ -49,7 +50,7 @@ async def trophy_movers(ctx):
     members = client.get_club(MYCLUB).members
     old_data = read_json()
 
-    message = "Last Reset: 14 Jun 2022, ~17:30 CDT"
+    message = f"Trophy movement since {get_reset_time()}:\n\n"
 
     for i, member in enumerate(members):
         print(f"{i}/{len(members)}")

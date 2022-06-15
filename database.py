@@ -1,4 +1,5 @@
 import json
+import datetime
 from pprint import pprint
 
 import brawlstats
@@ -8,7 +9,10 @@ from credentials import BRAWL_TOKEN
 CLIENT = brawlstats.Client(token=BRAWL_TOKEN())
 MYCLUB = "VCVQPP2"
 
-def get_data():
+class MetaData:
+    reset_time = "14 Jun 2022, ~17:30 CDT"
+
+def _get_data():
     players = dict()
     players["data"] = []
     
@@ -24,13 +28,17 @@ def get_data():
     return players
 
 def build_json():
-    players = get_data()
+    players = _get_data()
     with open("data.json", "w") as outfile:
         json.dump(players, outfile)
+    MetaData.reset_time = datetime.datetime.now()
+    
+def get_reset_time():
+    return MetaData.reset_time
+
 
 if __name__ == "__main__":
     build_json()
-    
         
     
         
