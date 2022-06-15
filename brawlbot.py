@@ -1,11 +1,11 @@
 from pprint import pprint
+import datetime
 
 import brawlstats
 from discord.ext import commands
 
 from credentials import DISCORD_TOKEN, BRAWL_TOKEN
-from helpers import read_json
-from database import get_reset_time
+from database import read_json
 
 MYCLUB = 'VCVQPP2'
 
@@ -15,9 +15,9 @@ bot = commands.Bot(command_prefix='!')
 
 @bot.event
 async def on_ready():
-
+    date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(
-        f'{bot.user} is connected!'
+        f'{date}: {bot.user} is connected!'
     )
 
 

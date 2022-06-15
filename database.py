@@ -9,9 +9,6 @@ from credentials import BRAWL_TOKEN
 CLIENT = brawlstats.Client(token=BRAWL_TOKEN())
 MYCLUB = "VCVQPP2"
 
-class MetaData:
-    reset_time = "14 Jun 2022, ~17:30 CDT"
-
 def _get_data():
     players = dict()
     players["data"] = []
@@ -30,11 +27,14 @@ def _get_data():
 def build_json():
     players = _get_data()
     with open("data/data.json", "w") as outfile:
+        players["last_updated"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         json.dump(players, outfile)
-    MetaData.reset_time = datetime.datetime.now()
+        
+def read_json():
+    with open("data/data.json", "r") as infile:
+        data = json.load(infile)
+    return data
     
-def get_reset_time():
-    return MetaData.reset_time
 
 
 if __name__ == "__main__":
