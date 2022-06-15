@@ -29,7 +29,7 @@ def _get_data():
 
 def build_json():
     players = _get_data()
-    with open("data.json", "w") as outfile:
+    with open("data/data.json", "w") as outfile:
         json.dump(players, outfile)
     MetaData.reset_time = datetime.datetime.now()
     

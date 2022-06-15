@@ -1,7 +1,7 @@
 import json
 
 def read_json():
-    with open("data.json", "r") as infile:
+    with open("data/data.json", "r") as infile:
         data = json.load(infile)
     return data
 
