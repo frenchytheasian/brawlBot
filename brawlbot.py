@@ -50,7 +50,7 @@ async def trophy_movers(ctx):
     members = client.get_club(MYCLUB).members
     old_data = read_json()
 
-    message = f"Trophy movement since {get_reset_time()}:\n\n"
+    message = f"Trophy movement since {old_data['last_updated']}:\n\n"
 
     for i, member in enumerate(members):
         print(f"{i}/{len(members)}")
