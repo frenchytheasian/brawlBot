@@ -25,7 +25,7 @@ async def on_ready():
 
 @bot.command(name="trophy_movers", help="Get the trophy movers for the club. Data is reset whenever Michael gets to it")
 async def trophy_movers(ctx):
-    url = f'https://api.brawlstars.com/v1/clubs/{MYCLUB}/members'
+    url = f'https://bsproxy.royaleapi.dev/v1/clubs/{MYCLUB}/members'
     
     response = json.loads(requests.get(url, proxies=get_proxy(), headers=headers).text)
     members = response['items']
@@ -36,10 +36,10 @@ async def trophy_movers(ctx):
 
     for i, member in enumerate(members):
         player_tag = '%23' + member['tag'][1:]
-        url = f'https://api.brawlstars.com/v1/players/{player_tag}'
+        url = f'https://bsproxy.royaleapi.dev/v1/players/{player_tag}'
         
         print(f"{i}/{len(members)}")
-        player = json.loads(requests.get(url, proxies=get_proxy(), headers=headers).text)
+        player =  json.loads(requests.get(url, proxies=get_proxy(), headers=headers).text)
         
         current_trophies = player["trophies"]
         old_trophies = old_data["data"][i]["trophies"]
