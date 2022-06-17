@@ -8,7 +8,7 @@ def get_proxy():
     load_dotenv()
 
     proxies = {
-        "http": os.getenv('QUOTAGUARDSTATIC_URL'),
-        "https": os.getenv('QUOTAGUARDSTATIC_URL')
+        "http": os.environ['QUOTAGUARDSTATIC_URL'],
+        "https": os.environ['QUOTAGUARDSTATIC_URL']
     }
     return proxies
