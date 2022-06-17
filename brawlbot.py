@@ -32,6 +32,7 @@ async def trophy_movers(ctx):
     old_data = read_json()
 
     message = f"Trophy movement since {old_data['last_updated']}:\n\n"
+    stats = []
 
     for i, member in enumerate(members):
         player_tag = '%23' + member['tag'][1:]
@@ -48,14 +49,15 @@ async def trophy_movers(ctx):
         arrow = ""
         if trophy_diff > 0:
             arrow = "⬆"
-            message += f"{member['name']}: {current_trophies} {trophy_diff} {arrow}\n"
+            stats.append((f"{member['name']}: {current_trophies} {trophy_diff} {arrow}\n", trophy_diff))
         elif trophy_diff < 0:
             arrow = "⬇"
-            message += f"{member['name']}: {current_trophies} {trophy_diff} {arrow}\n"
+            stats.append((f"{member['name']}: {current_trophies} {trophy_diff} {arrow}\n", trophy_diff))
         else:
             continue
         
-    
+    stats = [member[0] for member in sorted(stats, key=lambda x: x[1], reverse=True)]
+    message += "".join(stats)
     await ctx.send(message)
 
 
