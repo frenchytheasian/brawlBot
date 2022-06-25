@@ -1,10 +1,8 @@
-from turtle import update
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from typing import Dict
 from datetime import date, datetime
-from httplib2 import GoogleLoginAuthentication
 import requests
 import json
 
