@@ -7,7 +7,6 @@ from discord.ext import commands
 
 from credentials import DISCORD_TOKEN, BRAWL_TOKEN
 from database import read_json
-from staticip import get_proxy
 
 MYCLUB = '%23VCVQPP2'
 
@@ -27,7 +26,7 @@ async def on_ready():
 async def trophy_movers(ctx):
     url = f'https://bsproxy.royaleapi.dev/v1/clubs/{MYCLUB}/members'
     
-    response = json.loads(requests.get(url, proxies=get_proxy(), headers=headers).text)
+    response = json.loads(requests.get(url, headers=headers).text)
     members = response['items']
     old_data = read_json()
 
@@ -39,7 +38,7 @@ async def trophy_movers(ctx):
         url = f'https://bsproxy.royaleapi.dev/v1/players/{player_tag}'
         
         print(f"{i}/{len(members)}")
-        player =  json.loads(requests.get(url, proxies=get_proxy(), headers=headers).text)
+        player =  json.loads(requests.get(url, headers=headers).text)
         
         current_trophies = player["trophies"]
         old_trophies = old_data["data"][i]["trophies"]
