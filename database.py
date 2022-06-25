@@ -3,7 +3,8 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 from typing import Dict
-from datetime import date
+from datetime import date, datetime
+from httplib2 import GoogleLoginAuthentication
 import requests
 import json
 
@@ -40,13 +41,15 @@ def get_data():
         player_info["trophies"] = player["trophies"]
         
         players["data"].append(player_info)
+    
     return players
 
 
-def update_db(data: Dict):
+def update_db(data: Dict=get_data()):
     today = date.today().strftime("%m%d%Y")
+    data['last_updated'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     doc_ref = db.collection('daily_stats').document(today)
-    doc_ref.set(data)
+    response = doc_ref.set(data)
     
 def read_db():
     today = date.today().strftime("%m%d%Y")
@@ -57,5 +60,5 @@ def read_db():
 
 
 if __name__ == "__main__":
-    print(read_db())
+    update_db()
  

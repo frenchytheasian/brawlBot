@@ -6,7 +6,7 @@ import requests
 from discord.ext import commands
 
 from credentials import DISCORD_TOKEN, BRAWL_TOKEN
-from database import read_json
+from database import read_db
 
 MYCLUB = '%23VCVQPP2'
 
@@ -28,7 +28,7 @@ async def trophy_movers(ctx):
     
     response = json.loads(requests.get(url, headers=headers).text)
     members = response['items']
-    old_data = read_json()
+    old_data = read_db()
 
     message = f"Trophy movement since {old_data['last_updated']}:\n\n"
     stats = []
