@@ -17,7 +17,7 @@ headers = {'Authorization': f'Bearer {BRAWL_TOKEN()}'}
 # Use the application default credentials
 cred = credentials.Certificate({
     "type": "service_account",
-    "private_key": os.getenv('FIRESTORE_PRIVATE').replace('\\n', '\n'),
+    "private_key": os.getenv('FIRESTORE_KEY').replace('\\n', '\n'),
     "client_email": os.getenv('FIRESTORE_EMAIL'),
     "token_uri": "https://oauth2.googleapis.com/token",
 })
