@@ -1,4 +1,3 @@
-from pprint import pprint
 import datetime
 import json
 
@@ -6,7 +5,7 @@ import requests
 from discord.ext import commands
 
 from credentials import DISCORD_TOKEN, BRAWL_TOKEN
-from database import read_db
+from database import read_db, update_db
 
 MYCLUB = '%23VCVQPP2'
 
@@ -24,8 +23,9 @@ async def on_ready():
 
 @bot.command(name="trophy_movers", help="Get the trophy movers for the club. Data is reset whenever Michael gets to it")
 async def trophy_movers(ctx):
-    url = f'https://bsproxy.royaleapi.dev/v1/clubs/{MYCLUB}/members'
+    await ctx.send('Loading Data...')
     
+    url = f'https://bsproxy.royaleapi.dev/v1/clubs/{MYCLUB}/members'
     response = json.loads(requests.get(url, headers=headers).text)
     members = response['items']
     old_data = read_db()
@@ -44,7 +44,6 @@ async def trophy_movers(ctx):
         old_trophies = old_data["data"][i]["trophies"]
         trophy_diff = current_trophies - old_trophies
         
-        
         arrow = ""
         if trophy_diff > 0:
             arrow = "⬆"
@@ -58,6 +57,14 @@ async def trophy_movers(ctx):
     stats = [member[0] for member in sorted(stats, key=lambda x: x[1], reverse=True)]
     message += "".join(stats)
     await ctx.send(message)
+  
+def update_points(points):
+    pass
+    
+@bot.command(name='cb_update')
+async def cb_update(ctx, club_points):
+    update_points(club_points)
+    await ctx.send('Updating Points')
 
 
 bot.run(DISCORD_TOKEN())

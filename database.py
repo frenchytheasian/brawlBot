@@ -17,7 +17,7 @@ firebase_admin.initialize_app(FIRESTORE_CRED())
 db = firestore.client()
 
 
-def get_data():
+def get_player_data():
     players = dict()
     players["data"] = []
 
@@ -39,13 +39,12 @@ def get_data():
     return players
 
 
-def update_db(data: Dict = get_data()):
+def update_db(collection: str = 'daily_stats', data: Dict = get_player_data()):
     today = date.today().strftime("%m%d%Y")
     data['last_updated'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    doc_ref = db.collection('daily_stats').document(today)
+    doc_ref = db.collection(collection).document(today)
     response = doc_ref.set(data)
     print(response)
-
 
 def read_db():
     today = date.today().strftime("%m%d%Y")
