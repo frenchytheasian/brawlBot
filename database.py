@@ -1,30 +1,18 @@
 import firebase_admin
-from firebase_admin import credentials
 from firebase_admin import firestore
 from typing import Dict
 from datetime import date, datetime
-import json, os, requests
-from dotenv import load_dotenv
+import json
+import requests
 
-from credentials import BRAWL_TOKEN
+from credentials import BRAWL_TOKEN, FIRESTORE_CRED
 
-load_dotenv()
 
 MYCLUB = '%23VCVQPP2'
 
 headers = {'Authorization': f'Bearer {BRAWL_TOKEN()}'}
 
-# Use the application default credentials
-cred = credentials.Certificate({
-    "type": "service_account",
-    "private_key": os.getenv('FIRESTORE_KEY').replace('\\n', '\n'),
-    "client_email": os.getenv('FIRESTORE_EMAIL'),
-    "token_uri": "https://oauth2.googleapis.com/token",
-})
-firebase_admin.initialize_app(cred,
-    {
-    'projectId': 'brawlbot-ae4dd',
-})
+firebase_admin.initialize_app(FIRESTORE_CRED())
 
 db = firestore.client()
 
