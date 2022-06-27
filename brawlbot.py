@@ -33,6 +33,7 @@ async def trophy_movers(ctx):
     members = old_data["data"]
 
     for member in enumerate(members):
+        member = member[1]
         player_tag = '%23' + member['tag'][1:]
         url = f'https://bsproxy.royaleapi.dev/v1/players/{player_tag}'
 
